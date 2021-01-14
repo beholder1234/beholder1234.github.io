@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"beholder1234.github.io","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"appID":"MNSYOEVN8G","apiKey":"e1abbe84a71714e09612035b92368fea","indexName":"GithubBlogSearch","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="天翼网盘应用包链接：https:&#x2F;&#x2F;cloud.189.cn&#x2F;t&#x2F;7JZBJjZJjAbu (访问码:4hde)   GitHub个人仓库链接（部分应用没有）：https:&#x2F;&#x2F;github.com&#x2F;beholder1234&#x2F;AppStore">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化Win体验软件">
+<meta property="og:url" content="https://beholder1234.github.io/2021/01/12/%E4%BC%98%E5%8C%96Win%E4%BD%93%E9%AA%8C%E8%BD%AF%E4%BB%B6/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="天翼网盘应用包链接：https:&#x2F;&#x2F;cloud.189.cn&#x2F;t&#x2F;7JZBJjZJjAbu (访问码:4hde)   GitHub个人仓库链接（部分应用没有）：https:&#x2F;&#x2F;github.com&#x2F;beholder1234&#x2F;AppStore">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210109212333042.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106171925032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106172448011.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106172536834.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106172619119.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106173134138.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106173248350.png">
+<meta property="article:published_time" content="2021-01-11T18:11:10.000Z">
+<meta property="article:modified_time" content="2021-01-14T15:30:43.981Z">
+<meta property="article:author" content="beholder1234">
+<meta property="article:tag" content="Win软件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210109212333042.png">
+
+<link rel="canonical" href="https://beholder1234.github.io/2021/01/12/%E4%BC%98%E5%8C%96Win%E4%BD%93%E9%AA%8C%E8%BD%AF%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>优化Win体验软件 | 个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+  
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://beholder1234.github.io/2021/01/12/%E4%BC%98%E5%8C%96Win%E4%BD%93%E9%AA%8C%E8%BD%AF%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/aaa.gif">
+      <meta itemprop="name" content="beholder1234">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          优化Win体验软件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-12 02:11:10" itemprop="dateCreated datePublished" datetime="2021-01-12T02:11:10+08:00">2021-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-14 23:30:43" itemprop="dateModified" datetime="2021-01-14T23:30:43+08:00">2021-01-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Win%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">Win软件</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Win%E8%BD%AF%E4%BB%B6/%E4%BC%98%E5%8C%96Win%E4%BD%93%E9%AA%8C%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">优化Win体验软件</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/12/%E4%BC%98%E5%8C%96Win%E4%BD%93%E9%AA%8C%E8%BD%AF%E4%BB%B6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/12/%E4%BC%98%E5%8C%96Win%E4%BD%93%E9%AA%8C%E8%BD%AF%E4%BB%B6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>  天翼网盘应用包链接：<a target="_blank" rel="noopener" href="https://cloud.189.cn/t/7JZBJjZJjAbu">https://cloud.189.cn/t/7JZBJjZJjAbu</a> (访问码:4hde)</p>
+<img src="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210109212333042.png"/>
+
+<p>GitHub个人仓库链接（部分应用没有）：<a target="_blank" rel="noopener" href="https://github.com/beholder1234/AppStore">https://github.com/beholder1234/AppStore</a></p>
+<a id="more"></a>
+
+<h1 id="1-wox-everything"><a href="#1-wox-everything" class="headerlink" title="1. wox+everything"></a>1. wox+everything</h1><h2 id="地址"><a href="#地址" class="headerlink" title="地址:"></a>地址:</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Wox-launcher/Wox/releases">https://github.com/Wox-launcher/Wox/releases</a> </li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用:"></a>使用:</h2><ul>
+<li>Alt+空格在任意地方打开，是搜索软件，比系统自带硬盘搜索快几百倍</br><font color='red'>（注意：安装好后everything开erverything服务）</font></li>
+</ul>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明:"></a>说明:</h2><ul>
+<li>快捷搜索或打开某软件，文件等</li>
+</ul>
+<img src="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106171925032.png" alt="image-20210106171925032" style="zoom:50%;" />
+
+
+
+<h1 id="2-火绒安全"><a href="#2-火绒安全" class="headerlink" title="2.火绒安全"></a>2.火绒安全</h1><h2 id="地址："><a href="#地址：" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.huorong.cn/">https://www.huorong.cn/</a></li>
+</ul>
+<h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>系统安全管理软件</li>
+</ul>
+<h1 id="3-QuickLook"><a href="#3-QuickLook" class="headerlink" title="3.QuickLook"></a>3.QuickLook</h1><h2 id="地址：-1"><a href="#地址：-1" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/QL-Win/QuickLook/releases">https://github.com/QL-Win/QuickLook/releases</a></li>
+</ul>
+<h2 id="说明：-1"><a href="#说明：-1" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>选中文件,按空格键，在不打开情况下预览内容</li>
+</ul>
+<h1 id="4-Honeyview"><a href="#4-Honeyview" class="headerlink" title="4.Honeyview"></a>4.Honeyview</h1><h2 id="地址：-2"><a href="#地址：-2" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.bandisoft.com/honeyview/">http://www.bandisoft.com/honeyview/</a></li>
+</ul>
+<h2 id="说明：-2"><a href="#说明：-2" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>图片查看器，不解压情况下也能查看图片</li>
+</ul>
+<h1 id="5-dism"><a href="#5-dism" class="headerlink" title="5. dism++"></a>5. dism++</h1><h2 id="地址：-3"><a href="#地址：-3" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li>有安装包，链接在上</li>
+</ul>
+<h2 id="说明：-3"><a href="#说明：-3" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>用于清理系统，软件缓存，临时的文件，和修改系统显示（如右键菜单管理）</li>
+</ul>
+<img src="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106172448011.png" alt="image-20210106172448011" style="zoom:50%;" />
+
+<h1 id="6-Snipaste"><a href="#6-Snipaste" class="headerlink" title="6. Snipaste"></a>6. Snipaste</h1><h2 id="地址：-4"><a href="#地址：-4" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li>有安装包，链接在上</li>
+</ul>
+<h2 id="说明：-4"><a href="#说明：-4" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>轻量级截图软件</li>
+</ul>
+<img src="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106172536834.png" alt="image-20210106172536834" style="zoom:50%;" />
+
+<h1 id="7-万彩办公大师"><a href="#7-万彩办公大师" class="headerlink" title="7. 万彩办公大师"></a>7. 万彩办公大师</h1><h2 id="地址：-5"><a href="#地址：-5" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.wofficebox.com/">http://www.wofficebox.com/</a></li>
+</ul>
+<h2 id="说明：-5"><a href="#说明：-5" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>PDF工具/万能格式转换/识别工具/图片处理/录屏等，对视频，文本，图片相关的编辑操作均可来此看看，为办公而生的辅助软件</li>
+</ul>
+<img src="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106172619119.png" alt="image-20210106172619119" style="zoom:40%;" />
+
+<h1 id="8-Iobit-uninstaller"><a href="#8-Iobit-uninstaller" class="headerlink" title="8. Iobit uninstaller"></a>8. Iobit uninstaller</h1><h2 id="地址：-6"><a href="#地址：-6" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li>有安装包，链接在上</li>
+</ul>
+<h2 id="说明：-6"><a href="#说明：-6" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>彻底卸载软件</li>
+</ul>
+<img src="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106173134138.png" alt="image-20210106173134138" style="zoom:50%;" />
+
+<h1 id="9-IDM"><a href="#9-IDM" class="headerlink" title="9. IDM"></a>9. IDM</h1><h2 id="地址：-7"><a href="#地址：-7" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li>有安装包，链接在上</li>
+</ul>
+<h2 id="说明：-7"><a href="#说明：-7" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>神级下载软件，无限速，可爬去网站文件，视频，图片。接过其他网盘，下载文件的下载请求</li>
+</ul>
+<img src="https://raw.githubusercontent.com/beholder1234/PersonalOnlineSource/main/PicGoUploadPicture/image-20210106173248350.png" alt="image-20210106173248350" style="zoom:50%;" />
+
+<h1 id="10-PotPlayer"><a href="#10-PotPlayer" class="headerlink" title="10. PotPlayer"></a>10. PotPlayer</h1><h2 id="地址：-8"><a href="#地址：-8" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://potplayer.en.softonic.com/">https://potplayer.en.softonic.com/</a></li>
+</ul>
+<h2 id="说明：-8"><a href="#说明：-8" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>视频播放器，支持所有视频的播放</li>
+</ul>
+<h1 id="11-Chorme"><a href="#11-Chorme" class="headerlink" title="11. Chorme"></a>11. Chorme</h1><h2 id="地址：-9"><a href="#地址：-9" class="headerlink" title="地址："></a>地址：</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.google.cn/chrome/">https://www.google.cn/chrome/</a></li>
+</ul>
+<h2 id="说明：-9"><a href="#说明：-9" class="headerlink" title="说明："></a>说明：</h2><ul>
+<li>浏览器</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="beholder1234 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+                <span class="icon">
+                  <i class="fa fa-wechat"></i>
+                </span>
+
+                <span class="label">WeChat</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Win%E8%BD%AF%E4%BB%B6/" rel="tag"># Win软件</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/14/Win%E5%BF%85%E5%A4%87%E8%BD%AF%E4%BB%B6/" rel="next" title="Win必备软件">
+      Win必备软件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-wox-everything"><span class="nav-text">1. wox+everything</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80"><span class="nav-text">地址:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-text">使用:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-text">说明:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%81%AB%E7%BB%92%E5%AE%89%E5%85%A8"><span class="nav-text">2.火绒安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-QuickLook"><span class="nav-text">3.QuickLook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-1"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-1"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Honeyview"><span class="nav-text">4.Honeyview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-2"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-2"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-dism"><span class="nav-text">5. dism++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-3"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-3"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Snipaste"><span class="nav-text">6. Snipaste</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-4"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-4"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E4%B8%87%E5%BD%A9%E5%8A%9E%E5%85%AC%E5%A4%A7%E5%B8%88"><span class="nav-text">7. 万彩办公大师</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-5"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-5"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-Iobit-uninstaller"><span class="nav-text">8. Iobit uninstaller</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-6"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-6"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-IDM"><span class="nav-text">9. IDM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-7"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-7"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-PotPlayer"><span class="nav-text">10. PotPlayer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-8"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-8"><span class="nav-text">说明：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-Chorme"><span class="nav-text">11. Chorme</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%EF%BC%9A-9"><span class="nav-text">地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%EF%BC%9A-9"><span class="nav-text">说明：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="beholder1234"
+      src="/images/aaa.gif">
+  <p class="site-author-name" itemprop="name">beholder1234</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/beholder1234" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;beholder1234" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:906336773@qq.com" title="E-Mail → mailto:906336773@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beholder1234</span>
+</div><script color="0,0,255" opacity="0.9" zIndex="-1" count="200"  src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'dQPTgVrFx1nPFd0A5ola7VeH-MdYXbMMI',
+      appKey     : 'us5cBwdmtVJUzSShyQ7YxsmC',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
