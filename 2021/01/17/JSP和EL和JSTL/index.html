@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"beholder1234.github.io","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"appID":"MNSYOEVN8G","apiKey":"e1abbe84a71714e09612035b92368fea","indexName":"GithubBlogSearch","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JSP前言不要求在日常项目中学会嵌入java代码。只需了解JSP的基本作用，原理和会看JSP代码便可。个人多用EL或JSTL书写更简洁的表达式方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP&amp;EL&amp;JSTL">
+<meta property="og:url" content="https://beholder1234.github.io/2021/01/17/JSP%E5%92%8CEL%E5%92%8CJSTL/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="JSP前言不要求在日常项目中学会嵌入java代码。只需了解JSP的基本作用，原理和会看JSP代码便可。个人多用EL或JSTL书写更简洁的表达式方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/Beholder1234/AppData/Roaming/Typora/typora-user-images/image-20210116205624496.png">
+<meta property="article:published_time" content="2021-01-17T05:11:46.000Z">
+<meta property="article:modified_time" content="2021-01-17T05:41:42.265Z">
+<meta property="article:author" content="beholder1234">
+<meta property="article:tag" content="JSP&amp;EL&amp;JSTL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/Beholder1234/AppData/Roaming/Typora/typora-user-images/image-20210116205624496.png">
+
+<link rel="canonical" href="https://beholder1234.github.io/2021/01/17/JSP%E5%92%8CEL%E5%92%8CJSTL/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>JSP&EL&JSTL | 个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+  
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://beholder1234.github.io/2021/01/17/JSP%E5%92%8CEL%E5%92%8CJSTL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/aaa.gif">
+      <meta itemprop="name" content="beholder1234">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JSP&EL&JSTL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-17 13:11:46 / 修改时间：13:41:42" itemprop="dateCreated datePublished" datetime="2021-01-17T13:11:46+08:00">2021-01-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JSP-EL-JSTL/" itemprop="url" rel="index"><span itemprop="name">JSP&EL&JSTL</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/17/JSP%E5%92%8CEL%E5%92%8CJSTL/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/17/JSP%E5%92%8CEL%E5%92%8CJSTL/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a><center>JSP</center></h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>不要求在日常项目中学会嵌入java代码。只需了解JSP的基本作用，原理和会看JSP代码便可。个人多用EL或JSTL书写更简洁的表达式方法</p>
+<a id="more"></a>
+
+<h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="JSP定义"><a href="#JSP定义" class="headerlink" title="JSP定义"></a>JSP定义</h2><ul>
+<li>JSP全称Java Server Pages，是一种动态网页开发技术。主要用于实现Java web应用程序的用户界面部分</li>
+<li>JSP 技术是以 Java 语言作为脚本语言的，使用JSP标签可在HTML网页中插入Java代码 格式 <code>&lt;% java代码 %&gt;</code></li>
+</ul>
+<h2 id="JSP结构"><a href="#JSP结构" class="headerlink" title="JSP结构"></a>JSP结构</h2><ul>
+<li>服务器是无法直接处理Jsp页面请求的，需要一个JSP引擎（JSP容器）来截取和处理Jsp请求。而Apache内嵌有JSP容器。</li>
+<li>下图显示了服务器，JSP容器，JSP文件和数据库在Web应用中所处的位置</li>
+</ul>
+<p>![](PhotoMd/20200206165349306_16058.png =524x)</p>
+<h2 id="JSP处理过程"><a href="#JSP处理过程" class="headerlink" title="JSP处理过程"></a>JSP处理过程</h2><ol>
+<li>与其他网页一样，浏览器发送HTTP请求给服务器</li>
+<li>Web服务器识别出为JSP网页的请求，将该请求交给JSP引擎处理。</br><font color="red">（通过识别URL或.jsp文件来确定是否为JSP网页的请求）</font></li>
+<li>JSP引擎将JSP文件转化为Servlet文件<font>(即将模板文本改为orintln()语句，将JSP元素转化为Java代码)</font></li>
+<li>JSP引擎将Servlet文件编译为可执行类（.class）。</li>
+<li>Web服务器的某部件将调用Servlet引擎，载入Servlet类，而原始请求也会传递给Sevlet引擎处理。</li>
+<li>Servlet引擎在处理过程中，产生HTML格式的输出，并将其内嵌于HTTP response中，上交给Web服务器。</li>
+<li>Web服务器以静态HTML网页形式将HTTP response返回给浏览器。</li>
+<li>Web浏览器处理HTTP response中的HTML网页，显示出来</li>
+</ol>
+<ul>
+<li>理解：由上可知，JSP引擎会将JSP网页转化为Servlet文件，而原始请求会交由Servlet引擎处理，再有Servlet引擎将Servlet文件和转化为HTML文件交由浏览器解释显示出来。JSP网页就相当用另一种方式来编写Servlet</li>
+</ul>
+<p><img src="C:/Users/Beholder1234/AppData/Roaming/Typora/typora-user-images/image-20210116205624496.png" alt="image-20210116205624496"></p>
+<h1 id="2-JSP指令"><a href="#2-JSP指令" class="headerlink" title="2. JSP指令"></a>2. JSP指令</h1><ul>
+<li><p>说明：用于设置整个JSP页面相关的属性，如网页的编码方式和脚本语言</p>
+</li>
+<li><p>格式：&lt;%@ directive attribute=”value” %&gt;</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>指令</strong></th>
+<th align="center"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">&lt;%@ page … %&gt;</td>
+<td align="center">定义网页依赖属性，比如脚本语言、error页面、缓存需求等等</td>
+</tr>
+<tr>
+<td align="left">&lt;%@ include … %&gt;</td>
+<td align="center">包含其他文件 （JSP文件，HTML文件，文本文件）</td>
+</tr>
+<tr>
+<td align="left">&lt;%@ taglib … %&gt;</td>
+<td align="center">引入标签库的定义</td>
+</tr>
+</tbody></table>
+<h2 id="Page指令相关属性"><a href="#Page指令相关属性" class="headerlink" title="Page指令相关属性"></a>Page指令相关属性</h2><table>
+<thead>
+<tr>
+<th align="left"><strong>属性</strong></th>
+<th align="left"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">buffer</td>
+<td align="left">指定out对象使用缓冲区的大小</td>
+</tr>
+<tr>
+<td align="left">autoFlush</td>
+<td align="left">控制out对象的 缓存区</td>
+</tr>
+<tr>
+<td align="left">contentType</td>
+<td align="left">指定当前JSP页面的MIME类型和字符编码</td>
+</tr>
+<tr>
+<td align="left">errorPage</td>
+<td align="left">指定当JSP页面发生异常时需要转向的错误处理页面</td>
+</tr>
+<tr>
+<td align="left">isErrorPage</td>
+<td align="left">指定当前页面是否可以作为另一个JSP页面的错误处理页面</td>
+</tr>
+<tr>
+<td align="left">extends</td>
+<td align="left">指定servlet从哪一个类继承</td>
+</tr>
+<tr>
+<td align="left">import</td>
+<td align="left">导入要使用的Java类</td>
+</tr>
+<tr>
+<td align="left">info</td>
+<td align="left">定义JSP页面的描述信息</td>
+</tr>
+<tr>
+<td align="left">isThreadSafe</td>
+<td align="left">指定对JSP页面的访问是否为线程安全</td>
+</tr>
+<tr>
+<td align="left">language</td>
+<td align="left">定义JSP页面所用的脚本语言，默认是Java</td>
+</tr>
+<tr>
+<td align="left">session</td>
+<td align="left">指定JSP页面是否使用session</td>
+</tr>
+<tr>
+<td align="left">isELIgnored</td>
+<td align="left">指定是否执行EL表达式</td>
+</tr>
+<tr>
+<td align="left">isScriptingEnabled</td>
+<td align="left">确定脚本元素能否被使用</td>
+</tr>
+</tbody></table>
+<h2 id="Include指令相关属性"><a href="#Include指令相关属性" class="headerlink" title="Include指令相关属性"></a>Include指令相关属性</h2><table>
+<thead>
+<tr>
+<th align="left"><strong>属性</strong></th>
+<th align="left"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">file</td>
+<td align="left">文件相对URL路径</td>
+</tr>
+</tbody></table>
+<h2 id="Taglib指令相关属性"><a href="#Taglib指令相关属性" class="headerlink" title="Taglib指令相关属性"></a>Taglib指令相关属性</h2><table>
+<thead>
+<tr>
+<th align="left"><strong>属性</strong></th>
+<th align="left"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">uri</td>
+<td align="left">确定标签库的位置</td>
+</tr>
+<tr>
+<td align="left">prefix</td>
+<td align="left">指定标签库的前缀</td>
+</tr>
+</tbody></table>
+<h1 id="3-JSP动作元素"><a href="#3-JSP动作元素" class="headerlink" title="3. JSP动作元素"></a>3. JSP动作元素</h1><ul>
+<li>说明：</li>
+<li>格式：&lt;jsp:action_name attribute=”value” /&gt;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">语法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">jsp:include</td>
+<td align="left">在页面被请求的时候引入一个文件。</td>
+</tr>
+<tr>
+<td align="left">jsp:useBean</td>
+<td align="left">寻找或者实例化一个JavaBean。</td>
+</tr>
+<tr>
+<td align="left">jsp:setProperty</td>
+<td align="left">设置JavaBean的属性。</td>
+</tr>
+<tr>
+<td align="left">jsp:getProperty</td>
+<td align="left">输出某个JavaBean的属性。</td>
+</tr>
+<tr>
+<td align="left">jsp:forward</td>
+<td align="left">把请求转到一个新的页面。</td>
+</tr>
+<tr>
+<td align="left">jsp:plugin</td>
+<td align="left">根据浏览器类型为Java插件生成OBJECT或EMBED标记。</td>
+</tr>
+<tr>
+<td align="left">jsp:element</td>
+<td align="left">定义动态XML元素</td>
+</tr>
+<tr>
+<td align="left">jsp:attribute</td>
+<td align="left">设置动态定义的XML元素属性。</td>
+</tr>
+<tr>
+<td align="left">jsp:body</td>
+<td align="left">设置动态定义的XML元素内容。</td>
+</tr>
+<tr>
+<td align="left">jsp:text</td>
+<td align="left">在JSP页面和文档中使用写入文本的模板</td>
+</tr>
+</tbody></table>
+<h1 id="4-JSP内置对象"><a href="#4-JSP内置对象" class="headerlink" title="4. JSP内置对象"></a>4. JSP内置对象</h1><ul>
+<li>说明：内置对象中包含有四个作用域对象。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>内置对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pageContext</td>
+<td>PageContext类的实例 </br> 作用域：当前页面</br>作用：可获取其他八个内置对象的所有信息</td>
+</tr>
+<tr>
+<td>request</td>
+<td>HttpServletRequest类的实例</br>作用域：一次请求，只要服务器对请求做出响应，该作用域便销毁</br>作用：获取HTTP头信息，cookies，HTTP方法等等,与在该作用域的相关对象</td>
+</tr>
+<tr>
+<td>session</td>
+<td>HttpSession类的实例</br>作用域：同一个会话</br>作用：用来跟踪，获取在各个客户端请求间的会话</td>
+</tr>
+<tr>
+<td>application</td>
+<td>ServletContext类的实例</br>作用域：服务器开始创建，关闭则销毁</br>作用：对全局对象属性数据的获取和设置</td>
+</tr>
+<tr>
+<td>作用域比较</td>
+<td>pageContext &lt; request &lt; session &lt; application</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>out</td>
+<td>PrintWriter类的实例</br>用来在response对象中写入内容</td>
+</tr>
+<tr>
+<td>response</td>
+<td>HttpServletResponse类的实例，可用于添加新的cookies，时间戳，HTTP状态码等等</td>
+</tr>
+<tr>
+<td>config</td>
+<td>ServletConfig类的实例</br>作用：用于访问Servlet或者JSP引擎的初始化参数，比如文件路径等</td>
+</tr>
+<tr>
+<td>page</td>
+<td>类似于Java类中的this关键字，该对象代表着这个页面</td>
+</tr>
+<tr>
+<td>exception</td>
+<td>exception类的对象，代表发生错误的JSP页面中对应的异常对象</td>
+</tr>
+</tbody></table>
+<h1 id="5-JSP语法"><a href="#5-JSP语法" class="headerlink" title="5. JSP语法"></a>5. JSP语法</h1><h2 id="（1）脚本程序格式"><a href="#（1）脚本程序格式" class="headerlink" title="（1）脚本程序格式"></a>（1）脚本程序格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%  java代码  %&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>应用场景：前端页面，进行逻辑程序编写</p>
+</blockquote>
+<h2 id="（2）变量声明"><a href="#（2）变量声明" class="headerlink" title="（2）变量声明"></a>（2）变量声明</h2><ul>
+<li>全局变量（适用于整个jsp页面）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%! int a, b, c; %&gt; </span><br><span class="line">&lt;%! Circle a &#x3D; new Circle(2.0); %&gt; </span><br></pre></td></tr></table></figure>
+<ul>
+<li>局部变量（适用于自<code>&lt;% %&gt;</code>范围内）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;% int  b, c; %&gt; </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>应用场景：页面变量使用</p>
+</blockquote>
+<h2 id="（3）-JSP表达式"><a href="#（3）-JSP表达式" class="headerlink" title="（3） JSP表达式"></a>（3） JSP表达式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%&#x3D; 表达式 %&gt;</span><br><span class="line"></span><br><span class="line">&lt;%&#x3D; (new java.util.Date()).toLocaleString()%&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>应用场景：页面显示java变量值</p>
+</blockquote>
+<h2 id="（4）-JSP注释"><a href="#（4）-JSP注释" class="headerlink" title="（4） JSP注释"></a>（4） JSP注释</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%-- 注释 --%&gt;</span><br><span class="line">&lt;!-- 注释 --&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="（5）JSP控制流语句"><a href="#（5）JSP控制流语句" class="headerlink" title="（5）JSP控制流语句"></a>（5）JSP控制流语句</h2><h3 id="判断语句"><a href="#判断语句" class="headerlink" title="判断语句"></a>判断语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;IF...ELSE 实例&lt;&#x2F;h3&gt;</span><br><span class="line">&lt;% if (day &#x3D;&#x3D; 1 | day &#x3D;&#x3D; 7) &#123; %&gt;</span><br><span class="line">      &lt;p&gt;今天是周末&lt;&#x2F;p&gt;</span><br><span class="line">&lt;% &#125; else &#123; %&gt;</span><br><span class="line">      &lt;p&gt;今天不是周末&lt;&#x2F;p&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;SWITCH...CASE 实例&lt;&#x2F;h3&gt;</span><br><span class="line">&lt;% </span><br><span class="line">switch(sex) &#123;</span><br><span class="line">case 0:</span><br><span class="line">   out.println(&quot;boy&quot;);</span><br><span class="line">   break;</span><br><span class="line">default:</span><br><span class="line">   out.println(&quot;girl&quot;);</span><br><span class="line">&#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="循环语句：for，while，do…while"><a href="#循环语句：for，while，do…while" class="headerlink" title="循环语句：for，while，do…while"></a>循环语句：for，while，do…while</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;For 循环实例&lt;&#x2F;h3&gt;</span><br><span class="line">&lt;%for ( fontSize &#x3D; 1; fontSize &lt;&#x3D; 3; fontSize++)&#123; %&gt;</span><br><span class="line">   &lt;font color&#x3D;&quot;green&quot; size&#x3D;&quot;&lt;%&#x3D; fontSize %&gt;&quot;&gt;</span><br><span class="line">    菜鸟教程</span><br><span class="line">   &lt;&#x2F;font&gt;&lt;br &#x2F;&gt;</span><br><span class="line">&lt;%&#125;%&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;While 循环实例&lt;&#x2F;h3&gt;</span><br><span class="line">&lt;%while ( fontSize &lt;&#x3D; 3)&#123; %&gt;</span><br><span class="line">   &lt;font color&#x3D;&quot;green&quot; size&#x3D;&quot;&lt;%&#x3D; fontSize %&gt;&quot;&gt;</span><br><span class="line">    菜鸟教程</span><br><span class="line">   &lt;&#x2F;font&gt;&lt;br &#x2F;&gt;</span><br><span class="line">&lt;%fontSize++;%&gt;</span><br><span class="line">&lt;%&#125;%&gt;</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="EL表达式"><a href="#EL表达式" class="headerlink" title="EL表达式"></a><center>EL表达式</center></h1><h1 id="1-简介-1"><a href="#1-简介-1" class="headerlink" title="1. 简介"></a>1. 简介</h1><ul>
+<li><p>说明：简化JSP内置对象属性获取的书写</p>
+</li>
+<li><p><font color="red">前提：引入el.jar与standard.jar </font></p>
+</li>
+</ul>
+<h1 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h1><ol>
+<li>可以与 JSTL 以及 JavaScript 结合使用。</li>
+<li>可自动执行数值转换（null 值直接以空字符串显示）</li>
+<li>可以访问 JavaBean 中的属性、嵌套属性和集合属性</li>
+<li>可实现算术、逻辑、关系、条件等多种运算</li>
+<li>可以获得命名和空间</li>
+<li>执行除法时如果除数是 0，则返回无穷大（Infinity），不返回错误。</li>
+<li>可访问 4 种 JSP 的作用域（request、session、application、page）。</li>
+<li>扩展函数可以与 Java 类的静态方法执行映射。</li>
+</ol>
+<h1 id="3-EL语法"><a href="#3-EL语法" class="headerlink" title="3. EL语法"></a>3. EL语法</h1><h2 id="（1）语法格式"><a href="#（1）语法格式" class="headerlink" title="（1）语法格式"></a>（1）语法格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;类似 JSP 表达式 &lt;%&#x3D;表达式%&gt;</span><br><span class="line">$&#123;表达式&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&lt;%&#x3D;user.getAge()%&gt;</span><br><span class="line">$&#123;user.age&#125;</span><br><span class="line">$&#123;user[&quot;age&quot;]&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="（2）数据访问"><a href="#（2）数据访问" class="headerlink" title="（2）数据访问"></a>（2）数据访问</h2><ul>
+<li>说明：EL 使用“[]”和“.”运算符来访问数据，主要使用 EL 获取对象的属性，包括获取 JavaBean 的属性值、获取数组中的元素以及获取集合对象中的元素。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>访问方式（数据来自JSP内java脚本定义/JSP内置对象数据）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>普通数据类型</td>
+<td>//&lt;%= i    %&gt;<br/>${i}</td>
+</tr>
+<tr>
+<td>JavaBean对象类型</td>
+<td>//&lt;%=user.getAge()%&gt;<br/>${user.age}<br/>${user[“age”]}</td>
+</tr>
+<tr>
+<td>数组类型/List类型</td>
+<td>${array[0]}<br/>${array[1]}<br/>${array[2]}</td>
+</tr>
+<tr>
+<td>Map集合类型</td>
+<td>${map[“x”]}<br/>${map.x}</td>
+</tr>
+</tbody></table>
+<h2 id="（3）-运算符"><a href="#（3）-运算符" class="headerlink" title="（3） 运算符"></a>（3） 运算符</h2><h3 id="1）-运算符的优先级"><a href="#1）-运算符的优先级" class="headerlink" title="1） 运算符的优先级"></a>1） 运算符的优先级</h3><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>优先级(由髙至低，由左至右)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>[]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>()</td>
+</tr>
+<tr>
+<td>3</td>
+<td>-(负)、not、!、empty</td>
+</tr>
+<tr>
+<td>4</td>
+<td>*、/、div、%、mod</td>
+</tr>
+<tr>
+<td>5</td>
+<td>+、-(减)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>&lt;、&gt;、&lt;=、&gt;=、lt、gt、le、ge</td>
+</tr>
+<tr>
+<td>7</td>
+<td>==、!-、eq、ne</td>
+</tr>
+<tr>
+<td>8</td>
+<td>&amp;&amp;、and</td>
+</tr>
+<tr>
+<td>9</td>
+<td>|| 、or</td>
+</tr>
+<tr>
+<td>10</td>
+<td>${A?B:C}</td>
+</tr>
+</tbody></table>
+<h3 id="2）-算术运算符"><a href="#2）-算术运算符" class="headerlink" title="2） 算术运算符"></a>2） 算术运算符</h3><font color="red">
+注意：EL 的“+”运算符与 java 的“+”运算符不一样，EL无法实现两个字符串的连接运算，如果该运算符连接的两个值不能转换为数值型的字符串，则会拋出异常。如果使用该运算符连接两个可以转换为数值型的字符串，EL 会自动地将这两个字符转换为数值型数据，再进行加法运算。
+</font>
+
+<table>
+<thead>
+<tr>
+<th>EL算术运算符</th>
+<th>说明</th>
+<th>范例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加</td>
+<td>${15+2}</td>
+<td>17</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+<td>${15-2}</td>
+<td>13</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘</td>
+<td>${15*2}</td>
+<td>30</td>
+</tr>
+<tr>
+<td>/ 或 div</td>
+<td>除</td>
+<td>${15/2} 或 ${15 div 2}</td>
+<td>7</td>
+</tr>
+<tr>
+<td>% 或 mod</td>
+<td>求余</td>
+<td>${15%2} 或 ${15 mod 2}</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h3 id="3）-关系运算符"><a href="#3）-关系运算符" class="headerlink" title="3） 关系运算符"></a>3） 关系运算符</h3><table>
+<thead>
+<tr>
+<th>EL算术运算符</th>
+<th>说明</th>
+<th>范例</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>==  或 eq</td>
+<td>等于</td>
+<td>${6==6} 或 ${6 eq 6}<br>${“A”=”a”} 或 ${“A” eq “a”}</td>
+<td>true<br>false</td>
+</tr>
+<tr>
+<td>!= 或 ne</td>
+<td>不等于</td>
+<td>${6!=6} 或 ${6 ne 6}<br> ${“A”!=“a”} 或 ${“A” ne “a”}</td>
+<td>false<br>true</td>
+</tr>
+<tr>
+<td>&lt; 或 lt</td>
+<td>小于</td>
+<td>${3&lt;8} 或 ${3 lt 8} <br> ${“A”&lt;”a”} 或 ${“A” lt “a”}</td>
+<td>true<br> true</td>
+</tr>
+<tr>
+<td>&gt; 或 gt</td>
+<td>大于</td>
+<td>${3&gt;8} 或 ${3 gt 8}<br>${“A”&gt;”a”} 或 ${“A” gt “a”}</td>
+<td>false<br>false</td>
+</tr>
+<tr>
+<td>&lt;= 或 le</td>
+<td>小于等于</td>
+<td>${3&lt;=8} 或 ${3 le 8}<br>${“A”&lt;=”a”} 或 ${“A” le “a”}</td>
+<td>true<br>true</td>
+</tr>
+<tr>
+<td>&gt;= 或 ge</td>
+<td>大于等于</td>
+<td>${3&gt;=8} 或 ${3 ge 8}<br>${“A”&gt;=”a”} 或 ${“A” ge “a”}</td>
+<td>false<br>false</td>
+</tr>
+</tbody></table>
+<h3 id="4）-逻辑运算符"><a href="#4）-逻辑运算符" class="headerlink" title="4） 逻辑运算符"></a>4） 逻辑运算符</h3><table>
+<thead>
+<tr>
+<th>EL算术运算符</th>
+<th>范例(A、B为逻辑型表达式）</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;&amp; 或 and</td>
+<td>${A &amp;&amp; B} 或 ${A and B}</td>
+<td>true/false</td>
+</tr>
+<tr>
+<td>|| 或 or</td>
+<td>${A</td>
+<td>true/false</td>
+</tr>
+<tr>
+<td>! 或 not</td>
+<td>${!A} 或 ${not A}</td>
+<td>true/false</td>
+</tr>
+</tbody></table>
+<h3 id="5）-条件运算符"><a href="#5）-条件运算符" class="headerlink" title="5） 条件运算符"></a>5） 条件运算符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;条件表达式?表达式1:表达式2&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6）-empty空运算符"><a href="#6）-empty空运算符" class="headerlink" title="6） empty空运算符"></a>6） empty空运算符</h3><blockquote>
+<p>通过 empty 运算符，可以实现在 EL 表达式中判断对象是否为空。该运算符用于确定一个对象或者变量是否为 null 或空。若为空或者 null，返回空字符串、空数组，否则返回 false。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;empty cart&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="（4）EL表达式中的常量与变量"><a href="#（4）EL表达式中的常量与变量" class="headerlink" title="（4）EL表达式中的常量与变量"></a>（4）EL表达式中的常量与变量</h2><h3 id="1）-常量"><a href="#1）-常量" class="headerlink" title="1） 常量"></a>1） 常量</h3><ul>
+<li>Null</li>
+<li>整形常量</li>
+<li>浮点型常量</li>
+<li>布尔型常量</li>
+<li>字符型常量</li>
+<li>符号常量：在 EL 表达式语言中，可以使用符号常量，它类似于 Java 中 final 说明的常量。使用符号常量的目的是为了减少代码的维护量。</li>
+</ul>
+<h3 id="2）-变量"><a href="#2）-变量" class="headerlink" title="2） 变量"></a>2） 变量</h3><p><font color="red">注意：EL 存取变量数据的方法很简单，如 ${username}。它的意思是取出某一范围中的名为 username 的变量值。因为没有指定哪一个范围的 usemame，所以，它的默认值是在 page 范围内查找，如果找不到，则按照 request、session、application 范围依次查找，如果此期间找到 usemame，则直接回传，不再继续找下去，如果没有找到，则返回 null。表 1 为 EL 变量的使用范围。</font></p>
+<table>
+<thead>
+<tr>
+<th>属性范围</th>
+<th>在 EL 中的名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>page</td>
+<td>pageScope</td>
+</tr>
+<tr>
+<td>request</td>
+<td>requestScope</td>
+</tr>
+<tr>
+<td>session</td>
+<td>sessionScope</td>
+</tr>
+<tr>
+<td>application</td>
+<td>applicationScope</td>
+</tr>
+</tbody></table>
+<h1 id="JSTL"><a href="#JSTL" class="headerlink" title="JSTL"></a><center>JSTL</center></h1><ul>
+<li>JSTL标签库：<a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jsp-jstl.html">https://www.runoob.com/jsp/jsp-jstl.html</a></li>
+</ul>
+<h1 id="1-简介-2"><a href="#1-简介-2" class="headerlink" title="1. 简介"></a>1. 简介</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li><p>JSTL（Java server pages standarded tag library，即JSP标准标签库）是一个JSP标签集合，它封装了JSP应用的通用核心功能。简化JSP逻辑的书写</p>
+</li>
+<li><p>JSTL支持通用的、结构化的任务，比如迭代，条件判断，XML文档操作，国际化标签，SQL标签。 除了这些，它还提供了一个框架来使用集成JSTL的自定义标签。</p>
+</li>
+<li><p>JSTL标签所提供的功能可分为5类：核心标签，格式化标签，SQL标签，XML标签，JSTL标签</p>
+</li>
+</ul>
+<h1 id="2-应用"><a href="#2-应用" class="headerlink" title="2. 应用"></a>2. 应用</h1><h2 id="（1）核心标签"><a href="#（1）核心标签" class="headerlink" title="（1）核心标签"></a>（1）核心标签</h2><ul>
+<li><p>说明：核心标签是最常用的 JSTL标签</p>
+</li>
+<li><p><font color="red" >注意：引入核心标签库</br><code>&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;</code></font></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;c:out&gt;</td>
+<td>用于在JSP中显示数据，就像&lt;%= … &gt;</td>
+</tr>
+<tr>
+<td>&lt;c:set&gt;</td>
+<td>用于保存数据</td>
+</tr>
+<tr>
+<td>&lt;c:remove&gt;</td>
+<td>用于删除数据</td>
+</tr>
+<tr>
+<td>&lt;c:catch&gt;</td>
+<td>用来处理产生错误的异常状况，并且将错误信息储存起来</td>
+</tr>
+<tr>
+<td>&lt;c:if&gt;</td>
+<td>与我们在一般程序中用的if一样</td>
+</tr>
+<tr>
+<td>&lt;c:choose&gt;</td>
+<td>本身只当做&lt;c:when&gt;和&lt;c:otherwise&gt;的父标签</td>
+</tr>
+<tr>
+<td>&lt;c:when&gt;</td>
+<td>&lt;c:choose&gt;的子标签，用来判断条件是否成立</td>
+</tr>
+<tr>
+<td>&lt;c:otherwise&gt;</td>
+<td>&lt;c:choose&gt;的子标签，接在&lt;c:when&gt;标签后，当&lt;c:when&gt;标签判断为false时被执行</td>
+</tr>
+<tr>
+<td>&lt;c:import&gt;</td>
+<td>检索一个绝对或相对 URL，然后将其内容暴露给页面</td>
+</tr>
+<tr>
+<td>&lt;c:forEach&gt;</td>
+<td>基础迭代标签，接受多种集合类型</td>
+</tr>
+<tr>
+<td>&lt;c:forTokens&gt;</td>
+<td>根据指定的分隔符来分隔内容并迭代输出</td>
+</tr>
+<tr>
+<td>&lt;c:param&gt;</td>
+<td>用来给包含或重定向的页面传递参数</td>
+</tr>
+<tr>
+<td>&lt;c:redirect&gt;</td>
+<td>重定向至一个新的URL.</td>
+</tr>
+<tr>
+<td>&lt;c:url&gt;</td>
+<td>使用可选的查询参数来创造一个URL</td>
+</tr>
+</tbody></table>
+<h3 id="1）-lt-c-if-gt"><a href="#1）-lt-c-if-gt" class="headerlink" title="1） &lt;c:if&gt;"></a>1） &lt;c:if&gt;</h3><h4 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:if test&#x3D;&quot;&lt;boolean&gt;&quot; var&#x3D;&quot;&lt;string&gt;&quot; scope&#x3D;&quot;&lt;string&gt;&quot;&gt;</span><br><span class="line">   ...</span><br><span class="line">&lt;&#x2F;c:if&gt;</span><br><span class="line"></span><br><span class="line">&lt;c:if test&#x3D;&quot;$&#123;salary &gt; 2000&#125;&quot;&gt;</span><br><span class="line">   &lt;p&gt;我的工资为: &lt;c:out value&#x3D;&quot;$&#123;salary&#125;&quot;&#x2F;&gt;&lt;p&gt;</span><br><span class="line">&lt;&#x2F;c:if&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必要</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>test</td>
+<td>条件</td>
+<td>是</td>
+<td>无</td>
+</tr>
+<tr>
+<td>var</td>
+<td>用于存储条件结果的变量</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>var属性的作用域</td>
+<td>否</td>
+<td>page</td>
+</tr>
+</tbody></table>
+<h3 id="2）-lt-c-choose-gt-，-lt-c-when-gt-与-lt-c-otherwise-gt"><a href="#2）-lt-c-choose-gt-，-lt-c-when-gt-与-lt-c-otherwise-gt" class="headerlink" title="2） &lt;c:choose&gt;，&lt;c:when&gt;与&lt;c:otherwise&gt;"></a>2） &lt;c:choose&gt;，&lt;c:when&gt;与&lt;c:otherwise&gt;</h3><h4 id="语法格式-1"><a href="#语法格式-1" class="headerlink" title="语法格式"></a>语法格式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;java的 switch case default</span><br><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test&#x3D;&quot;&lt;boolean&gt;&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;&#x2F;c:when&gt;</span><br><span class="line">    &lt;c:when test&#x3D;&quot;&lt;boolean&gt;&quot;&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;&#x2F;c:when&gt;</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    &lt;c:otherwise&gt;</span><br><span class="line">        ...</span><br><span class="line">    &lt;&#x2F;c:otherwise&gt;</span><br><span class="line">&lt;&#x2F;c:choose&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必要</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>test</td>
+<td>条件</td>
+<td>是</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h3 id="3）-lt-c-forEach-gt-与-lt-c-forTokens-gt"><a href="#3）-lt-c-forEach-gt-与-lt-c-forTokens-gt" class="headerlink" title="3） &lt;c:forEach&gt;与&lt;c:forTokens&gt;"></a>3） &lt;c:forEach&gt;与&lt;c:forTokens&gt;</h3><blockquote>
+<p>相比而言，&lt;c:forEach&gt;标签是更加通用的标签，因为它迭代一个集合中的对象。<br>&lt;c:forTokens&gt;标签通过指定分隔符将字符串分隔为一个数组然后迭代它们。</p>
+</blockquote>
+<h4 id="lt-c-forEach-gt-语法格式"><a href="#lt-c-forEach-gt-语法格式" class="headerlink" title="&lt;c:forEach&gt;语法格式"></a>&lt;c:forEach&gt;语法格式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forEach</span><br><span class="line">    items&#x3D;&quot;&lt;object&gt;&quot;</span><br><span class="line">    begin&#x3D;&quot;&lt;int&gt;&quot;</span><br><span class="line">    end&#x3D;&quot;&lt;int&gt;&quot;</span><br><span class="line">    step&#x3D;&quot;&lt;int&gt;&quot;</span><br><span class="line">    var&#x3D;&quot;&lt;string&gt;&quot;</span><br><span class="line">    varStatus&#x3D;&quot;&lt;string&gt;&quot;&gt;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">&lt;&#x2F;c:forEach&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;c:forEach var&#x3D;&quot;i&quot; begin&#x3D;&quot;1&quot; end&#x3D;&quot;5&quot;&gt;</span><br><span class="line">   Item &lt;c:out value&#x3D;&quot;$&#123;i&#125;&quot;&#x2F;&gt;&lt;p&gt;</span><br><span class="line">&lt;&#x2F;c:forEach&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="lt-c-forTokens-gt-语法格式"><a href="#lt-c-forTokens-gt-语法格式" class="headerlink" title="&lt;c:forTokens&gt;语法格式"></a>&lt;c:forTokens&gt;语法格式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:forTokens</span><br><span class="line">    items&#x3D;&quot;&lt;string&gt;&quot;</span><br><span class="line">    delims&#x3D;&quot;&lt;string&gt;&quot;</span><br><span class="line">    begin&#x3D;&quot;&lt;int&gt;&quot;</span><br><span class="line">    end&#x3D;&quot;&lt;int&gt;&quot;</span><br><span class="line">    step&#x3D;&quot;&lt;int&gt;&quot;</span><br><span class="line">    var&#x3D;&quot;&lt;string&gt;&quot;</span><br><span class="line">    varStatus&#x3D;&quot;&lt;string&gt;&quot;&gt;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;c:forTokens&gt;</span><br><span class="line"></span><br><span class="line">&lt;c:forTokens items&#x3D;&quot;google,runoob,taobao&quot; delims&#x3D;&quot;,&quot; var&#x3D;&quot;name&quot;&gt;</span><br><span class="line">   &lt;c:out value&#x3D;&quot;$&#123;name&#125;&quot;&#x2F;&gt;&lt;p&gt;</span><br><span class="line">&lt;&#x2F;c:forTokens&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="属性-2"><a href="#属性-2" class="headerlink" title="属性"></a>属性</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>是否必要</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>items</td>
+<td>被遍历的对象</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>begin</td>
+<td>开始的元素（0=第一个元素，1=第二个元素）</td>
+<td>否</td>
+<td>0</td>
+</tr>
+<tr>
+<td>end</td>
+<td>最后一个元素（0=第一个元素，1=第二个元素）</td>
+<td>否</td>
+<td>Last element</td>
+</tr>
+<tr>
+<td>step</td>
+<td>每一次迭代的步长（实现跳遍历）</td>
+<td>否</td>
+<td>1</td>
+</tr>
+<tr>
+<td>var</td>
+<td>代表当前条目的变量名称</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>varStatus</td>
+<td>代表循环状态的变量名称</td>
+<td>否</td>
+<td>无</td>
+</tr>
+<tr>
+<td>delims</td>
+<td>分隔符</td>
+<td>是</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h2 id="（2）格式化标签"><a href="#（2）格式化标签" class="headerlink" title="（2）格式化标签"></a>（2）格式化标签</h2><blockquote>
+<p>说明：JSTL格式化标签用来格式化并输出文本、日期、时间、数字</p>
+</blockquote>
+<p><font color="red" >注意：引入格式化标签库</br><code>&lt;%@ taglib prefix=&quot;fmt&quot; uri=&quot;http://java.sun.com/jsp/jstl/fmt&quot; %&gt;</code><br></font></p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="fmt:formatNumber">fmt:formatNumber</a></td>
+<td>使用指定的格式或精度格式化数字</td>
+</tr>
+<tr>
+<td><a href="fmt:parseNumber">fmt:parseNumber</a></td>
+<td>解析一个代表着数字，货币或百分比的字符串</td>
+</tr>
+<tr>
+<td><a href="fmt:formatDate">fmt:formatDate</a></td>
+<td>使用指定的风格或模式格式化日期和时间</td>
+</tr>
+<tr>
+<td><a href="fmt:parseDate">fmt:parseDate</a></td>
+<td>解析一个代表着日期或时间的字符串</td>
+</tr>
+<tr>
+<td><a href="fmt:bundle">fmt:bundle</a></td>
+<td>绑定资源</td>
+</tr>
+<tr>
+<td><a href="fmt:setLocale">fmt:setLocale</a></td>
+<td>指定地区</td>
+</tr>
+<tr>
+<td><a href="fmt:setBundle">fmt:setBundle</a></td>
+<td>绑定资源</td>
+</tr>
+<tr>
+<td><a href="fmt:timeZone">fmt:timeZone</a></td>
+<td>指定时区</td>
+</tr>
+<tr>
+<td><a href="fmt:setTimeZone">fmt:setTimeZone</a></td>
+<td>指定时区</td>
+</tr>
+<tr>
+<td><a href="fmt:message">fmt:message</a></td>
+<td>显示资源配置文件信息</td>
+</tr>
+<tr>
+<td><a href="fmt:requestEncoding">fmt:requestEncoding</a></td>
+<td>设置request的字符编码</td>
+</tr>
+</tbody></table>
+<h2 id="（3）SQL标签"><a href="#（3）SQL标签" class="headerlink" title="（3）SQL标签"></a>（3）SQL标签</h2><blockquote>
+<p>说明：JSTL格式化标签用来格式化并输出文本、日期、时间、数字</p>
+</blockquote>
+<p><font color="red" >注意：引入格式化标签库</br><code>&lt;%@ taglib prefix=&quot;sql&quot; uri=&quot;http://java.sun.com/jsp/jstl/sql&quot; %&gt;</code><br></font></p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="sql:setDataSource">sql:setDataSource</a></td>
+<td>指定数据源</td>
+</tr>
+<tr>
+<td><a href="sql:query">sql:query</a></td>
+<td>运行SQL查询语句</td>
+</tr>
+<tr>
+<td><a href="sql:update">sql:update</a></td>
+<td>运行SQL更新语句</td>
+</tr>
+<tr>
+<td><a href="sql:param">sql:param</a></td>
+<td>将SQL语句中的参数设为指定值</td>
+</tr>
+<tr>
+<td><a href="sql:dateParam">sql:dateParam</a></td>
+<td>将SQL语句中的日期参数设为指定的java.util.Date 对象值</td>
+</tr>
+<tr>
+<td><a href="sql:transaction">sql:transaction</a></td>
+<td>在共享数据库连接中提供嵌套的数据库行为元素，将所有语句以一个事务的形式来运行</td>
+</tr>
+</tbody></table>
+<h2 id="（4）XML标签"><a href="#（4）XML标签" class="headerlink" title="（4）XML标签"></a>（4）XML标签</h2><p><font color="red" >引入 XercesImpl.jar与xalan.jar<br></font></p>
+<blockquote>
+<p>说明：功能与核心标签差不多</p>
+</blockquote>
+<p><font color="red" >注意：引入格式化标签库</br><code>&lt;%@ taglib prefix=&quot;x&quot; uri=&quot;http://java.sun.com/jsp/jstl/xml&quot; %&gt;</code><br></font></p>
+<table>
+<thead>
+<tr>
+<th align="left">标签</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-out-tag.html">x:out</a></td>
+<td align="left">与&lt;%= … &gt;,类似，不过只用于XPath表达式</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-parse-tag.html">x:parse</a></td>
+<td align="left">解析 XML 数据</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-set-tag.html">x:set</a></td>
+<td align="left">设置XPath表达式</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-if-tag.html">x:if</a></td>
+<td align="left">判断XPath表达式，若为真，则执行本体中的内容，否则跳过本体</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-foreach-tag.html">x:forEach</a></td>
+<td align="left">迭代XML文档中的节点</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-choose-tag.html">x:choose</a></td>
+<td align="left">&lt;x:when&gt;和&lt;x:otherwise&gt;的父标签</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-choose-tag.html">x:when</a></td>
+<td align="left">&lt;x:choose&gt;的子标签，用来进行条件判断</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-choose-tag.html">x:otherwise</a></td>
+<td align="left">&lt;x:choose&gt;的子标签，当&lt;x:when&gt;判断为false时被执行</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-transform-tag.html">x:tranform</a></td>
+<td align="left">将XSL转换应用在XML文档中</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-xml-param-tag.html">x:param</a></td>
+<td align="left">与&lt;x:transform&gt;共同使用，用于设置XSL样式表</td>
+</tr>
+</tbody></table>
+<h2 id="（5）JSTL函数"><a href="#（5）JSTL函数" class="headerlink" title="（5）JSTL函数"></a>（5）JSTL函数</h2><blockquote>
+<p>说明：JSTL包含一系列标准函数，大部分是通用的字符串处理函数。</p>
+</blockquote>
+<p><font color="red" >注意：引入格式化标签库</br><code>&lt;%@ taglib prefix=&quot;fn&quot; uri=&quot;http://java.sun.com/jsp/jstl/functions&quot; %&gt;</code><br></font></p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-contains.html">fn:contains()</a></td>
+<td align="left">测试输入的字符串是否包含指定的子串</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-containsignoreCase.html">fn:containsIgnoreCase()</a></td>
+<td align="left">测试输入的字符串是否包含指定的子串，大小写不敏感</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-endswith.html">fn:endsWith()</a></td>
+<td align="left">测试输入的字符串是否以指定的后缀结尾</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-escapexml.html">fn:escapeXml()</a></td>
+<td align="left">跳过可以作为XML标记的字符</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-indexof.html">fn:indexOf()</a></td>
+<td align="left">返回指定字符串在输入字符串中出现的位置</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-join.html">fn:join()</a></td>
+<td align="left">将数组中的元素合成一个字符串然后输出</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-length.html">fn:length()</a></td>
+<td align="left">返回字符串长度</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-replace.html">fn:replace()</a></td>
+<td align="left">将输入字符串中指定的位置替换为指定的字符串然后返回</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-split.html">fn:split()</a></td>
+<td align="left">将字符串用指定的分隔符分隔然后组成一个子字符串数组并返回</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-startswith.html">fn:startsWith()</a></td>
+<td align="left">测试输入字符串是否以指定的前缀开始</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-substring.html">fn:substring()</a></td>
+<td align="left">返回字符串的子集</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-substringafter.html">fn:substringAfter()</a></td>
+<td align="left">返回字符串在指定子串之后的子集</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-substringbefore.html">fn:substringBefore()</a></td>
+<td align="left">返回字符串在指定子串之前的子集</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-tolowercase.html">fn:toLowerCase()</a></td>
+<td align="left">将字符串中的字符转为小写</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-touppercase.html">fn:toUpperCase()</a></td>
+<td align="left">将字符串中的字符转为大写</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://www.runoob.com/jsp/jstl-function-trim.html">fn:trim()</a></td>
+<td align="left">移除首尾的空白符</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="beholder1234 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+            <div class="social-item">
+              <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+                <span class="icon">
+                  <i class="fa fa-wechat"></i>
+                </span>
+
+                <span class="label">WeChat</span>
+              </a>
+            </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JSP-EL-JSTL/" rel="tag"># JSP&EL&JSTL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/Ajax%E5%92%8CJson/" rel="prev" title="Ajax&Json">
+      <i class="fa fa-chevron-left"></i> Ajax&Json
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP"><span class="nav-text">JSP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP%E5%AE%9A%E4%B9%89"><span class="nav-text">JSP定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP%E7%BB%93%E6%9E%84"><span class="nav-text">JSP结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-text">JSP处理过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JSP%E6%8C%87%E4%BB%A4"><span class="nav-text">2. JSP指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Page%E6%8C%87%E4%BB%A4%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7"><span class="nav-text">Page指令相关属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Include%E6%8C%87%E4%BB%A4%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7"><span class="nav-text">Include指令相关属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Taglib%E6%8C%87%E4%BB%A4%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7"><span class="nav-text">Taglib指令相关属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JSP%E5%8A%A8%E4%BD%9C%E5%85%83%E7%B4%A0"><span class="nav-text">3. JSP动作元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="nav-text">4. JSP内置对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-JSP%E8%AF%AD%E6%B3%95"><span class="nav-text">5. JSP语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E8%84%9A%E6%9C%AC%E7%A8%8B%E5%BA%8F%E6%A0%BC%E5%BC%8F"><span class="nav-text">（1）脚本程序格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-text">（2）变量声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%883%EF%BC%89-JSP%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">（3） JSP表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%884%EF%BC%89-JSP%E6%B3%A8%E9%87%8A"><span class="nav-text">（4） JSP注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%885%EF%BC%89JSP%E6%8E%A7%E5%88%B6%E6%B5%81%E8%AF%AD%E5%8F%A5"><span class="nav-text">（5）JSP控制流语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E8%AF%AD%E5%8F%A5"><span class="nav-text">判断语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%EF%BC%9Afor%EF%BC%8Cwhile%EF%BC%8Cdo%E2%80%A6while"><span class="nav-text">循环语句：for，while，do…while</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EL%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">EL表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B-1"><span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BD%9C%E7%94%A8"><span class="nav-text">2. 作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-EL%E8%AF%AD%E6%B3%95"><span class="nav-text">3. EL语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-text">（1）语法格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE"><span class="nav-text">（2）数据访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%883%EF%BC%89-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">（3） 运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%89-%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-text">1） 运算符的优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">2） 算术运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%89-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">3） 关系运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%EF%BC%89-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">4） 逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%EF%BC%89-%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">5） 条件运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%EF%BC%89-empty%E7%A9%BA%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">6） empty空运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%884%EF%BC%89EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%8F%98%E9%87%8F"><span class="nav-text">（4）EL表达式中的常量与变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%89-%E5%B8%B8%E9%87%8F"><span class="nav-text">1） 常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89-%E5%8F%98%E9%87%8F"><span class="nav-text">2） 变量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSTL"><span class="nav-text">JSTL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B-2"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%BA%94%E7%94%A8"><span class="nav-text">2. 应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%A0%B8%E5%BF%83%E6%A0%87%E7%AD%BE"><span class="nav-text">（1）核心标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%89-lt-c-if-gt"><span class="nav-text">1） &lt;c:if&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89-lt-c-choose-gt-%EF%BC%8C-lt-c-when-gt-%E4%B8%8E-lt-c-otherwise-gt"><span class="nav-text">2） &lt;c:choose&gt;，&lt;c:when&gt;与&lt;c:otherwise&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%89-lt-c-forEach-gt-%E4%B8%8E-lt-c-forTokens-gt"><span class="nav-text">3） &lt;c:forEach&gt;与&lt;c:forTokens&gt;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%A0%87%E7%AD%BE"><span class="nav-text">（2）格式化标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%883%EF%BC%89SQL%E6%A0%87%E7%AD%BE"><span class="nav-text">（3）SQL标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%884%EF%BC%89XML%E6%A0%87%E7%AD%BE"><span class="nav-text">（4）XML标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EF%BC%885%EF%BC%89JSTL%E5%87%BD%E6%95%B0"><span class="nav-text">（5）JSTL函数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="beholder1234"
+      src="/images/aaa.gif">
+  <p class="site-author-name" itemprop="name">beholder1234</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/beholder1234" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;beholder1234" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:906336773@qq.com" title="E-Mail → mailto:906336773@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">beholder1234</span>
+</div><script color="0,0,255" opacity="0.9" zIndex="-1" count="200"  src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'dQPTgVrFx1nPFd0A5ola7VeH-MdYXbMMI',
+      appKey     : 'us5cBwdmtVJUzSShyQ7YxsmC',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
